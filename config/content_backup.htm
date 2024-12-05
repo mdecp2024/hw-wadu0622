@@ -66,31 +66,53 @@
 <p>第一題:input(), and print()</p>
 <p><span>input()範例程式:<a href="https://potential-engine-5g4xpwjvvpgxfr47-8081.app.github.dev/content/Brython.html?src=https://gist.githubusercontent.com/wadu0622/17ad8f6efaf63535359f62daf998c3c9/raw/343069d25c7aa99e961808750567fcad3f575e34/22114.py">What's your name?</a></span></p>
 <p><span>print()範例程式:<a href="https://potential-engine-5g4xpwjvvpgxfr47-8081.app.github.dev/content/Brython.html?src=https://gist.githubusercontent.com/wadu0622/17ad8f6efaf63535359f62daf998c3c9/raw/343069d25c7aa99e961808750567fcad3f575e34/cat.py">cat</a></span></p>
-<h3>w13_hw</h3>
-<!-- 導入 brython 程式庫 -->
-<script src="/get_page/cmsimde/static/brython.js"></script>
-<script src="/get_page/cmsimde/static/brython_stdlib.js"></script>
+<h3>w13 hw</h3>
+<!-- 引入 Brython 程式庫 -->
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
 <!-- 啟動 Brython -->
 <script>
-window.onload=function(){
-brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
+window.onload = function() {
+    brython({debug:1, pythonpath:['/static/', '../../downloads/py/']});
 }
 </script>
-<script type="text/python3">
+<!-- 設置容器 -->
+<div id="brython div1"></div>
+<!-- 利用 Brython 繪圖 -->
+<script type="text/python">
 from browser import html
 from browser import document as doc
 
-# 利用 html 建立 canvas 超文件物件
-canvas = html.CANVAS(width=600, height=600)  # 調整畫布大小以容納圓形
-brython_div = doc["brython_div1"]
+# 利用 HTML 建立 canvas 並定義特性
+canvas = html.CANVAS(width=400, height=400)
+brython_div = doc["brython div1"]
 brython_div <= canvas
 ctx = canvas.getContext("2d")
 
-ctx.lineWidth = 1
+ctx.strokeStyle = 'red'  # 設定矩形的邊框顏色為紅色
+ctx.beginPath()
+ctx.rect(100, 100, 200, 200)  # 第一個正方形的左上角在(100, 100)，邊長200
+ctx.rect(200, 200, 200, 200)  # 第二個正方形的左上角在(200, 200)，邊長200
+ctx.stroke()
+
+# 2. 繪製對角線 (藍色) - 只連接第一個矩形的左上角和第一個矩形的右下角
 ctx.strokeStyle = 'blue'  # 設定對角線顏色為藍色
 ctx.beginPath()
-ctx.moveTo(10, 10)  # 起點為第一個矩形的左上角 (10, 10)
-ctx.lineTo(100, 100)  # 終點為第一個矩形的右下角 (100, 100)
+ctx.moveTo(100, 100)  # 起點為第一個矩形的左上角 (100, 100)
+ctx.lineTo(300, 300)  # 終點為第一個矩形的右下角 (300, 300)
+ctx.stroke()
+
+# 3. 繪製兩個外切圓 (黑色)
+ctx.strokeStyle = 'black'  # 設定圓的顏色為黑色
+
+# 第一個矩形的外切圓
+ctx.beginPath()
+ctx.arc(200, 200, 141.4, 0, 2 * 3.14)  # 圓心在(200, 200)，半徑為141.4（sqrt(2) * 邊長的一半）
+ctx.stroke()
+
+# 第二個矩形的外切圓
+ctx.beginPath()
+ctx.arc(300, 300, 141.4, 0, 2 * 3.14)  # 圓心在(300, 300)，半徑為141.4
 ctx.stroke()
 </script><h1>HW 2</h1>
 <h4>主題: Python 的數列、判斷式與重複迴圈 (20%)<span style="background-color: #ffff99;"><br/></span></h4>
